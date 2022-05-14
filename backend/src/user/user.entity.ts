@@ -1,4 +1,5 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { ApiProperty } from '@nestjs/swagger';
 import {
   Column,
   CreateDateColumn,
@@ -14,27 +15,48 @@ export enum UserRole {
 
 @ObjectType()
 @Entity('users')
-export class UserEntity {
+export class User {
+  @ApiProperty({
+    example: '9ca88274-90ff-464d-b1a2-04c2a33e7751',
+    description: 'UUID пользователя',
+  })
   @Field(() => ID)
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
+  @ApiProperty({
+    example: 'Олег',
+    description: 'Имя',
+  })
   @Field()
   @Column()
   firstname: string;
 
+  @ApiProperty({
+    example: 'Ватутин',
+    description: 'Фамилия',
+  })
   @Field()
   @Column()
   lastname: string;
 
-  @Field()
-  @Column('text')
+  @ApiProperty({
+    example: 'Занимаюсь танцами, вяжу, пою бардовские песенки...',
+    description: 'Описание (информация о себе)',
+  })
+  @Field({ nullable: true })
+  @Column({ type: 'text', nullable: true })
   desc: string;
 
+  @ApiProperty({
+    example: 'example@mail.com',
+    description: 'Электронная почта пользователя',
+  })
   @Field()
-  @Column()
+  @Column({ unique: true })
   email: string;
 
+  
   @Field()
   @Column()
   password: string;

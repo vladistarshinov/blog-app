@@ -12,7 +12,7 @@ import { UserModule } from './user/user.module';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       debug: false,
-      playground: false,
+      playground: true,
       autoSchemaFile: 'schema.gql',
     }),
     TypeOrmModule.forRootAsync({
