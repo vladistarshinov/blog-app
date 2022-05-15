@@ -5,12 +5,12 @@ import { User } from './user.entity';
 
 @Injectable()
 export class UserService {
-  constructor(
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
-  ) {}
+	constructor(
+		@InjectRepository(User)
+		private readonly _userRepository: Repository<User>
+	) {}
 
-  async getUser(): Promise<string> {
-    return 'string';
-  }
+	async getAll(): Promise<User[]> {
+		return await this._userRepository.find({});
+	}
 }

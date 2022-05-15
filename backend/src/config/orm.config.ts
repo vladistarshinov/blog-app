@@ -11,7 +11,7 @@ export const getPgConfig = async (
   database: config.get<string>('TYPEORM_DATABASE'),
   port: +config.get<number>('TYPEORM_PORT'),
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-  migrations: [__dirname + '/../**/*.migration{.ts,.js}'],
+  migrations: [__dirname + '/../db/migrations/*{.ts,.js}'],
   synchronize: true,
   logging: true,
 });

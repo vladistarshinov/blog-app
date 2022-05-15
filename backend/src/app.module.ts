@@ -3,8 +3,9 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { getPgConfig } from './configs/orm.config';
+import { getPgConfig } from './config/orm.config';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { UserModule } from './user/user.module';
       useFactory: getPgConfig,
     }),
     UserModule,
+    AuthModule,
   ],
   providers: [],
 })
