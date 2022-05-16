@@ -4,14 +4,15 @@ import {
 	ForbiddenException,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+import { GqlExecutionContext } from '@nestjs/graphql';
 import { User, UserRole } from '../../user/user.entity';
 
 export class JwtAdminGuard implements CanActivate {
-	constructor(private reflector: Reflector) {}
+	constructor(private _reflector: Reflector) {}
 
 	canActivate(ctx: ExecutionContext): boolean {
-		const request = ctx.switchToHttp().getRequest<{ user: User }>();
-		const user = request.user;
+		const context = GqlExecutionContext.create(ctx);
+		const user = context.getContext().req.user as User;
 
 		if (user.role !== UserRole.ADMIN)
 			throw new ForbiddenException('Нет прав для просмотра');

@@ -1,3 +1,4 @@
+import * as cookieParser from 'cookie-parser';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
@@ -12,6 +13,7 @@ async function bootstrap() {
     },
   });
   app.setGlobalPrefix('api');
+  app.use(cookieParser());
   const config = app.get(ConfigService);
   const options = new DocumentBuilder()
     .setTitle('Story Journal API')

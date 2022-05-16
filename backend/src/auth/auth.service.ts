@@ -10,6 +10,7 @@ import { LoginUserInput } from './inputs/login-user.input';
 import { CreateUserInput } from './inputs/create-user.input';
 import { JwtService } from '@nestjs/jwt';
 import { hash, genSalt, compare } from 'bcryptjs';
+import {RefreshTokenInput} from "./inputs/refresh-token.input";
 
 @Injectable()
 export class AuthService {
@@ -89,19 +90,19 @@ export class AuthService {
 		return { accessToken, refreshToken };
 	}
 
-	/*async getNewTokens({ refreshToken }: RefreshTokenDto) {
+	async getNewTokens(refreshToken: string) {
 		if (!refreshToken) throw new UnauthorizedException('Please sign in');
 
 		const res = await this._jwtService.verifyAsync(refreshToken);
 		if (!res) throw new UnauthorizedException('Invalid token or expired');
 
-		const user = await this._userRepository.findOneBy(res.id);
+		const user = await this._userRepository.findOneBy({ id: res.id});
 		const tokens = await this.issueTokenPair(user.id);
 		return {
 			...user,
 			...tokens,
 		};
-	}*/
+	}
 
 	async findByEmail(email: string) {
 		return this._userRepository.findOneBy({ email });

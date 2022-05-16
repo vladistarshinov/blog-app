@@ -49,6 +49,7 @@ type Query {
 
 type Mutation {
   login(data: LoginUserInput!): AuthResponse!
+  getNewTokens: AuthResponse!
   register(data: CreateUserInput!): AuthResponse!
 }
 

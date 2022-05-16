@@ -15,6 +15,9 @@ import { AuthModule } from './auth/auth.module';
       debug: false,
       playground: true,
       autoSchemaFile: 'schema.gql',
+      context: ({req, res}) => ({
+        req, res
+      })
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
